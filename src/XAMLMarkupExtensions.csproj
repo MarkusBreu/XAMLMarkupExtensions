@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<PropertyGroup>
-		<TargetFrameworks>net452;net40;net35</TargetFrameworks>
+		<TargetFrameworks>net452;net40;net35;netcoreapp3.1</TargetFrameworks>
 		<AssemblyTitle>XAMLMarkupExtensions</AssemblyTitle>
 		<AssemblyName>XAMLMarkupExtensions</AssemblyName>
 		<RootNamespace>XAMLMarkupExtensions</RootNamespace>
@@ -27,6 +27,7 @@
 		<DelaySign>false</DelaySign>
 		<PublicSign>true</PublicSign>
 		<AssemblyOriginatorKeyFile>public.snk</AssemblyOriginatorKeyFile>
+    <UseWPF>true</UseWPF>
 	</PropertyGroup>
 
 	<Choose>
@@ -42,7 +43,7 @@
 		</Otherwise>
 	</Choose>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.1'">
 		<Reference Include="PresentationCore" />
 		<Reference Include="PresentationFramework" />
 		<Reference Include="System" />
@@ -53,10 +54,14 @@
 		<Reference Include="System.Xml" />
 		<Reference Include="WindowsBase" />
 
-		<PackageReference Include="GitVersionTask" Version="4.0.0" PrivateAssets="All" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
 	</ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="GitVersionTask" Version="5.2.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
+  </ItemGroup>
+  
+  
 	<Target Name="PublishToNugetWithAPIKey" AfterTargets="GenerateNuspec" Condition="Exists('$(SolutionDir)\..\..\nugetapikey.txt')">
 		<ReadLinesFromFile File="$(SolutionDir)\..\..\nugetapikey.txt">
 			<Output TaskParameter="Lines" PropertyName="NugetAPIKey" />
