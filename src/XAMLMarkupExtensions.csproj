@@ -38,7 +38,7 @@
 		</When>
 		<Otherwise>
 			<PropertyGroup>
-				<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+				<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
